@@ -7,10 +7,11 @@
       <h2 class="subtitle">{{ . }}</h2>
       {{ end }}
     </div>
+    {{- $paginator := .Paginator -}}
     <div class="block">
-      {{ if .Pages }}
+      {{ if $paginator.Pages }}
         <ul class="content">
-          {{ range .Pages }}
+          {{ range $paginator.Pages }}
           <li>
             <span class="has-text-grey">{{ .Date.Format "2006-01-02" }}</span>
             <a href="{{ .Permalink }}">{{ .Title }}</a>
@@ -21,7 +22,29 @@
         <p class="content">記事がありません</p>
       {{ end }}
     </div>
-    {{ template "_internal/pagination.html" . }}
+    {{- if gt $paginator.TotalPages 1 -}}
+    <div class="block">
+      <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+        {{- if $paginator.HasPrev -}}
+        <a href="{{ $paginator.Prev.URL }}" class="pagination-previous">前へ</a>
+        {{- else -}}
+        <a class="pagination-previous" disabled>前へ</a>
+        {{- end -}}
+        {{- if $paginator.HasNext -}}
+        <a href="{{ $paginator.Next.URL }}" class="pagination-next">次へ</a>
+        {{- else -}}
+        <a class="pagination-next" disabled>次へ</a>
+        {{- end -}}
+        <ul class="pagination-list">
+          {{- range $paginator.Pagers -}}
+          <li>
+            <a href="{{ .URL }}" class="pagination-link{{ if eq . $paginator }} is-current{{ end }}" aria-label="Goto page {{ .PageNumber }}">{{ .PageNumber }}</a>
+          </li>
+          {{- end -}}
+        </ul>
+      </nav>
+    </div>
+    {{- end -}}
   </section>
 </div>
 {{ end }}
