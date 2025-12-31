@@ -1,4 +1,4 @@
-baseURL = 'https://morix1500.github.io/morix-blog-public/'
+baseURL = 'https://blog.haramishio.xyz/'
 languageCode = 'ja'
 title = 'ハラミTech'
 defaultContentLanguage = 'ja'
