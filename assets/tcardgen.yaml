@@ -1,0 +1,41 @@
+title:
+  start:
+    px: 60
+    py: 60
+  fgHexColor: "#000000"
+  fontSize: 58
+  fontStyle: Bold
+  maxWidth: 1080
+  lineSpacing: 20
+
+category:
+  start:
+    px: -1000
+    py: -1000
+  fgHexColor: "#000000"
+  fontSize: 1
+  fontStyle: Regular
+
+author:
+  start:
+    px: -1000
+    py: -1000
+  fgHexColor: "#000000"
+  fontSize: 1
+  fontStyle: Regular
+
+tags:
+  start:
+    px: -1000
+    py: -1000
+  fgHexColor: "#000000"
+  fontSize: 1
+  fontStyle: Regular
+
+info:
+  start:
+    px: -1000
+    py: -1000
+  fgHexColor: "#000000"
+  fontSize: 1
+  fontStyle: Regular
