@@ -1,0 +1,101 @@
+{{- $url := .Get 0 -}}
+{{- $title := "" -}}
+{{- $description := "" -}}
+{{- $image := "" -}}
+{{- $siteName := "" -}}
+
+{{- $result := try (resources.GetRemote $url) -}}
+{{- with $result.Err -}}
+  {{- warnf "blog-card: %s" . -}}
+{{- else -}}
+  {{- with $result.Value -}}
+    {{- $content := .Content -}}
+
+    {{/* og:title を取得 */}}
+    {{- $titleMatch := findRE `<meta[^>]*property=["']og:title["'][^>]*content=["']([^"']+)["']` $content 1 -}}
+    {{- if not $titleMatch -}}
+      {{- $titleMatch = findRE `<meta[^>]*content=["']([^"']+)["'][^>]*property=["']og:title["']` $content 1 -}}
+    {{- end -}}
+    {{- with $titleMatch -}}
+      {{- $title = replaceRE `.*content=["']([^"']+)["'].*` "$1" (index . 0) -}}
+    {{- end -}}
+
+    {{/* タイトルが取得できなかった場合、title タグから取得 */}}
+    {{- if not $title -}}
+      {{- $titleTagMatch := findRE `<title[^>]*>([^<]+)</title>` $content 1 -}}
+      {{- with $titleTagMatch -}}
+        {{- $title = replaceRE `<title[^>]*>([^<]+)</title>` "$1" (index . 0) -}}
+      {{- end -}}
+    {{- end -}}
+
+    {{/* og:description を取得 */}}
+    {{- $descMatch := findRE `<meta[^>]*property=["']og:description["'][^>]*content=["']([^"']+)["']` $content 1 -}}
+    {{- if not $descMatch -}}
+      {{- $descMatch = findRE `<meta[^>]*content=["']([^"']+)["'][^>]*property=["']og:description["']` $content 1 -}}
+    {{- end -}}
+    {{- with $descMatch -}}
+      {{- $description = replaceRE `.*content=["']([^"']+)["'].*` "$1" (index . 0) -}}
+    {{- end -}}
+
+    {{/* description が取得できなかった場合、meta description から取得 */}}
+    {{- if not $description -}}
+      {{- $metaDescMatch := findRE `<meta[^>]*name=["']description["'][^>]*content=["']([^"']+)["']` $content 1 -}}
+      {{- if not $metaDescMatch -}}
+        {{- $metaDescMatch = findRE `<meta[^>]*content=["']([^"']+)["'][^>]*name=["']description["']` $content 1 -}}
+      {{- end -}}
+      {{- with $metaDescMatch -}}
+        {{- $description = replaceRE `.*content=["']([^"']+)["'].*` "$1" (index . 0) -}}
+      {{- end -}}
+    {{- end -}}
+
+    {{/* og:image を取得 */}}
+    {{- $imageMatch := findRE `<meta[^>]*property=["']og:image["'][^>]*content=["']([^"']+)["']` $content 1 -}}
+    {{- if not $imageMatch -}}
+      {{- $imageMatch = findRE `<meta[^>]*content=["']([^"']+)["'][^>]*property=["']og:image["']` $content 1 -}}
+    {{- end -}}
+    {{- with $imageMatch -}}
+      {{- $image = replaceRE `.*content=["']([^"']+)["'].*` "$1" (index . 0) -}}
+    {{- end -}}
+
+    {{/* og:site_name を取得 */}}
+    {{- $siteMatch := findRE `<meta[^>]*property=["']og:site_name["'][^>]*content=["']([^"']+)["']` $content 1 -}}
+    {{- if not $siteMatch -}}
+      {{- $siteMatch = findRE `<meta[^>]*content=["']([^"']+)["'][^>]*property=["']og:site_name["']` $content 1 -}}
+    {{- end -}}
+    {{- with $siteMatch -}}
+      {{- $siteName = replaceRE `.*content=["']([^"']+)["'].*` "$1" (index . 0) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{/* タイトルがない場合はURLを表示 */}}
+{{- if not $title -}}
+  {{- $title = $url -}}
+{{- end -}}
+
+{{/* ドメイン取得 */}}
+{{- $domain := replaceRE `^https?://([^/]+).*` "$1" $url -}}
+
+<div class="blog-card">
+  <a href="{{ $url }}" target="_blank" rel="noopener noreferrer">
+    <div class="blog-card-content">
+      <div class="blog-card-text">
+        <div class="blog-card-title">{{ $title | htmlUnescape }}</div>
+        {{- if $description -}}
+        <div class="blog-card-description">{{ $description | htmlUnescape | truncate 120 }}</div>
+        {{- end -}}
+        <div class="blog-card-meta">
+          <span class="blog-card-domain">{{ $domain }}</span>
+          {{- if $siteName -}}
+          <span class="blog-card-site-name">{{ $siteName | htmlUnescape }}</span>
+          {{- end -}}
+        </div>
+      </div>
+      {{- if $image -}}
+      <div class="blog-card-image">
+        <img src="{{ $image }}" alt="{{ $title | htmlUnescape }}" loading="lazy">
+      </div>
+      {{- end -}}
+    </div>
+  </a>
+</div>

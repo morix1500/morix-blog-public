@@ -48,6 +48,14 @@ COPY --from=builder /app/main /main
 CMD ["/main"]
 ```
 
+## 参考リンク
+
+Docker公式ドキュメントも参考にしてください。
+
+{{< blog-card "https://docs.docker.com/get-started/" >}}
+
+{{< blog-card "https://zenn.dev/suzuki_hoge/books/2022-03-docker-practice-8ae36c33424b59" >}}
+
 ## まとめ
 
 これらのTipsを活用して、効率的なDocker開発を行いましょう。

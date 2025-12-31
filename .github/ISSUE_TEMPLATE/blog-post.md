@@ -21,3 +21,7 @@ tags:
 ```
 
 ここに記事本文を書く
+
+<!--
+{{< blog-card "https://example.com" >}}
+-->
