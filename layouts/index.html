@@ -1,0 +1,32 @@
+{{ define "main" }}
+<div class="container">
+  <section class="section">
+    <div class="block">
+      <h1 class="title">{{ .Site.Title }}</h1>
+      <h2 class="subtitle">{{ .Site.Params.description }}</h2>
+    </div>
+    <div class="block">
+      {{ $posts := where .Site.RegularPages "Section" "posts" }}
+      {{ if $posts }}
+        {{ range first 5 $posts }}
+        <div class="content">
+          <a href="{{ .Permalink }}"><strong>{{ .Title }}</strong></a>
+          <br>
+          作成日: {{ .Date.Format "2006-01-02" }}
+          <br>
+          {{ .Summary }}
+        </div>
+        {{ end }}
+      {{ else }}
+        <div class="content">
+          まだ記事がありません
+        </div>
+      {{ end }}
+    </div>
+    {{ $posts := where .Site.RegularPages "Section" "posts" }}
+    {{ if gt (len $posts) 5 }}
+    <a href="/posts/">記事一覧へ</a>
+    {{ end }}
+  </section>
+</div>
+{{ end }}

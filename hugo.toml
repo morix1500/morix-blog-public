@@ -1,0 +1,50 @@
+baseURL = 'https://example.org/'
+languageCode = 'ja'
+title = 'ハラミTech'
+defaultContentLanguage = 'ja'
+
+[params]
+  description = 'ITエンジニアのMorixが運営する技術ブログです。'
+  author = 'Morix'
+  twitter = '@morix1500'
+
+[outputs]
+  home = ['HTML', 'RSS']
+  section = ['HTML', 'RSS']
+
+[markup]
+  [markup.highlight]
+    codeFences = true
+    lineNos = true
+    style = 'monokai'
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 4
+
+[taxonomies]
+  tag = 'tags'
+
+[[menus.main]]
+  name = 'Home'
+  pageRef = '/'
+  weight = 10
+
+[[menus.main]]
+  name = 'About'
+  pageRef = '/about'
+  weight = 20
+
+[[menus.main]]
+  name = 'Articles'
+  pageRef = '/posts'
+  weight = 30
+
+[[menus.main]]
+  name = 'Tags'
+  pageRef = '/tags'
+  weight = 40
+
+[[menus.main]]
+  name = 'RSS'
+  url = '/index.xml'
+  weight = 50

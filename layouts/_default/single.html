@@ -1,0 +1,33 @@
+{{ define "main" }}
+<article class="container">
+  <section class="section">
+    <h1 class="title is-3">{{ .Title }}</h1>
+    <div class="block">
+      <p class="subtitle is-6 has-text-left">作成日: {{ .Date.Format "2006-01-02" }} 作成者: <a href="https://x.com/morix1500">{{ .Site.Params.author }}</a></p>
+    </div>
+    {{ with .Params.tags }}
+    <div class="block">
+      {{ range . }}
+      <a class="tag is-primary" href="{{ "tags/" | absURL }}{{ . | urlize }}/">{{ . }}</a>
+      {{ end }}
+    </div>
+    {{ end }}
+    <div class="columns is-12">
+      <div class="column is-9">
+        <div class="content">
+          {{ .Content }}
+        </div>
+      </div>
+      {{ if .TableOfContents }}
+      <div class="column is-3 is-hidden-mobile">
+        <div class="is-size-6">
+          <div class="content">
+            {{ .TableOfContents }}
+          </div>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </section>
+</article>
+{{ end }}
