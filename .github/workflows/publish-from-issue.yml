@@ -38,11 +38,8 @@ jobs:
           MONTH=$(date +%m)
           DAY=$(date +%d)
 
-          # ファイル名を生成（タイトルからslugを作成）
-          SLUG=$(echo "$ISSUE_TITLE" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g' | sed 's/--*/-/g' | sed 's/^-//' | sed 's/-$//')
-          if [ -z "$SLUG" ]; then
-            SLUG="post-${ISSUE_NUMBER}"
-          fi
+          # ファイル名を生成
+          SLUG="post-${ISSUE_NUMBER}"
 
           # ディレクトリを作成
           DIR="content/posts/${YEAR}/${MONTH}/${DAY}"

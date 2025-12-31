@@ -23,5 +23,8 @@ tags:
 ここに記事本文を書く
 
 <!--
+# ブログカード
 {{< blog-card "https://example.com" >}}
+# 画像
+![代替テキスト](/img/example.png)
 -->

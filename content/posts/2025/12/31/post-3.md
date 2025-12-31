@@ -37,7 +37,7 @@ tags:
 
 ↓はいドン！
 
-<img width="1024" height="736" alt="Image" src="https://github.com/user-attachments/assets/0e4de730-dce8-4ec6-a73d-84bd2a11123b" />
+![キャプチャ](https://github.com/user-attachments/assets/0e4de730-dce8-4ec6-a73d-84bd2a11123b)
 
 てわけで
 
