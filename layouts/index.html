@@ -8,19 +8,16 @@
     <div class="block">
       {{ $posts := where .Site.RegularPages "Section" "posts" }}
       {{ if $posts }}
-        {{ range first 5 $posts }}
-        <div class="content">
-          <a href="{{ .Permalink }}"><strong>{{ .Title }}</strong></a>
-          <br>
-          作成日: {{ .Date.Format "2006-01-02" }}
-          <br>
-          {{ .Summary }}
-        </div>
-        {{ end }}
+        <ul class="content">
+          {{ range first 5 $posts }}
+          <li>
+            <span class="has-text-grey">{{ .Date.Format "2006-01-02" }}</span>
+            <a href="{{ .Permalink }}">{{ .Title }}</a>
+          </li>
+          {{ end }}
+        </ul>
       {{ else }}
-        <div class="content">
-          まだ記事がありません
-        </div>
+        <p class="content">まだ記事がありません</p>
       {{ end }}
     </div>
     {{ $posts := where .Site.RegularPages "Section" "posts" }}
