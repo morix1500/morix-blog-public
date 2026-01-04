@@ -27,4 +27,6 @@ tags:
 {{< blog-card "https://example.com" >}}
 # 画像
 ![代替テキスト](/img/example.png)
+# X
+{{< x user="morix1500" id="1992432473423441968" >}}
 -->
